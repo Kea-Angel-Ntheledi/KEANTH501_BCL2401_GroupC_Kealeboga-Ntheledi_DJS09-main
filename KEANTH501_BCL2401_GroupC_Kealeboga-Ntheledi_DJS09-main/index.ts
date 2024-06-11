@@ -1,51 +1,44 @@
-// Tuple Types
-// 1. Replace the contact values to take an array that contains a
-// phone number and email.
-// 2. Check the inferred Type that appears in the Object Type.
-// 3. Overwrite the inferred type to be a Tuple.
+// Literal Types
+// 1. Based on what we have learnt about literal types with the price, can you make
+// a Country literal type? You only have to include the countries we are dealing with in 
+// the project.
+// 2. Can you create a file and store all your types aliases in there?
 
+import { showReviewTotal, populateUser, showDetails } from './utils'
+import { Permissions , LoyaltyUser } from './enums'
+import { Price, Country } from './type'
 const propertyContainer = document.querySelector('.properties')
+const footer = document.querySelector('.footer')
 
-import { showReviewTotal, populateUser } from './utils'
-let isOpen: boolean
+let isLoggedIn: boolean
 
 // Reviews
-const reviews : { 
-    name: string; 
-    stars: number; 
-    loyaltyUser: boolean; 
-    date: string
-    }[] = [
+const reviews : any[] = [
     {
         name: 'Sheia',
         stars: 5,
-        loyaltyUser: true,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
         date: '01-04-2021'
     },
     {
         name: 'Andrzej',
         stars: 3,
-        loyaltyUser: false,
+        loyaltyUser: LoyaltyUser.BRONZE_USER,
         date: '28-03-2021'
     },
     {
         name: 'Omar',
         stars: 4,
-        loyaltyUser: true,
-        date: '27-03-2021'
+        loyaltyUser: LoyaltyUser.SILVER_USER,
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said.'
     },
 ]
 
-// User
-const you: {
-    firstName: string;
-    lastName: string;
-    isReturning: boolean;
-    age: number;
-    stayedAt: string[]
-} = {
+const you = {
     firstName: 'Bobby',
     lastName: 'Brown',
+    permissions: Permissions.ADMIN,
     isReturning: true,
     age: 35,
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
@@ -55,14 +48,14 @@ const you: {
 const properties : {
     image: string;
     title: string;
-    price: number;
+    price: Price;
     location: {
         firstLine: string;
         city: string;
         code: number;
-        country: string;
+        country: Country;
     };
-    contact: [number, string];
+    contact: [ number, string ];
     isAvailable: boolean;
 }[] = [
     {
@@ -75,37 +68,36 @@ const properties : {
             code: 45632,
             country: 'Colombia'
         },
-        contact: [+1123495082908, 'marywinkle@gmail.com'],
+        contact: [+112343823978921, 'marywinkle@gmail.com'],
         isAvailable: true  
     },
     {
         image: 'images/poland-property.jpg',
         title: 'Polish Cottage',
-        price: 34,
+        price: 30,
         location: {
             firstLine: 'no 23',
             city: 'Gdansk',
             code: 343903,
             country: 'Poland'
         },
-        contact: [+1123495082908, 'garydavis@hotmail.com'],
+        contact: [+1298239028490830, 'garydavis@hotmail.com'],
         isAvailable: false 
     },
     {
         image: 'images/london-property.jpg',
         title: 'London Flat',
-        price: 23,
+        price: 25,
         location: {
             firstLine: 'flat 15',
             city: 'London',
             code: 35433,
             country: 'United Kingdom',
         },
-        contact: [ +1123495082908, 'andyluger@aol.com'],
+        contact: [+34829374892553, 'andyluger@aol.com'],
         isAvailable: true
     }
 ]
-
 
 // Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
@@ -120,6 +112,10 @@ for (let i = 0; i < properties.length; i++) {
     const image = document.createElement('img')
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
+    showDetails(you.permissions, card, properties[i].price)
     propertyContainer.appendChild(card)
 }
+
+let currentLocation : [string, string, number] = ['London', '11.03', 17]
+footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
 
