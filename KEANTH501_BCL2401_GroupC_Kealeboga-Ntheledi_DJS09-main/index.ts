@@ -1,10 +1,17 @@
-// Number Types mini-challenge 10 10.2
-// Write a function that will only accept numbers and attend to 
-// all TypeScript weakness flags.
-// : number
-const reviewTotalDisplay = document.querySelector('#reviews')
+// Object Types Challenge
+// Based on what we discussed we need to make up our Property Objects and array,
+// can you create that array, making sure to assign the correct Types?
 
-const reviews = [
+import { showReviewTotal, populateUser } from './utils'
+let isOpen: boolean
+
+// Reviews
+const reviews : { 
+    name: string; 
+    stars: number; 
+    loyaltyUser: boolean; 
+    date: string
+    }[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -24,3 +31,79 @@ const reviews = [
         date: '27-03-2021'
     },
 ]
+
+// User
+const you: {
+    firstName: string;
+    lastName: string;
+    isReturning: boolean;
+    age: number;
+    stayedAt: string[]
+} = {
+    firstName: 'Bobby',
+    lastName: 'Brown',
+    isReturning: true,
+    age: 35,
+    stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
+}
+
+//Properties
+const properties : {
+    image: string;
+    title: string;
+    price: number;
+    location: {
+        firstLine: string;
+        city: string;
+        code: number;
+        country: string;
+    };
+    contact: string;
+    isAvailable: boolean;
+}[] = [
+    {
+        image: '',
+        title: 'Colombian Shack',
+        price: 45,
+        location: {
+            firstLine: 'shack 37',
+            city: 'Bogota',
+            code: 45632,
+            country: 'Colombia'
+        },
+        contact: 'marywinkle@gmail.com',
+        isAvailable: true  
+    },
+    {
+        image: '',
+        title: 'Polish Cottage',
+        price: 34,
+        location: {
+            firstLine: 'no 23',
+            city: 'Gdansk',
+            code: 343903,
+            country: 'Poland'
+        },
+        contact: 'garydavis@hotmail.com',
+        isAvailable: false 
+    },
+    {
+        image: '',
+        title: 'London Flat',
+        price: 23,
+        location: {
+            firstLine: 'flat 15',
+            city: 'London',
+            code: 35433,
+            country: 'United Kingdom',
+        },
+        contact: 'andyluger@aol.com',
+        isAvailable: true
+    }
+]
+
+// Functions
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
+
+populateUser(you.isReturning, you.firstName)
+
